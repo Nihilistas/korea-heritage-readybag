@@ -4,17 +4,26 @@ Static copy of the 6–18 Nov 2026 tourist stamp plan (ready bag at 20 stamps). 
 
 Open `index.html` in a browser, or host the folder on GitHub Pages.
 
-This copy is ready to push from the **Nihilistas** GitHub account. There is no `origin` remote yet.
+This copy is ready to push from the **Nihilistas** GitHub account. There is no `origin` remote yet. You do not need the `gh` CLI.
 
 ## GitHub Pages (Nihilistas)
 
-From this folder, after you are logged in as Nihilistas:
+1. While logged in as Nihilistas, create an empty public repo named `korea-heritage-readybag` at https://github.com/new (no README, no .gitignore, no license).
+2. From this folder:
 
 ```bash
-gh repo create korea-heritage-readybag --public --source=. --remote=origin --push
+git remote add origin git@github.com:Nihilistas/korea-heritage-readybag.git
+git push -u origin main
 ```
 
-Then on the repo: **Settings → Pages → Build and deployment → GitHub Actions**. The workflow in `.github/workflows/pages.yml` publishes on every push to `main`.
+If SSH is not set up for that account, use HTTPS instead:
+
+```bash
+git remote add origin https://github.com/Nihilistas/korea-heritage-readybag.git
+git push -u origin main
+```
+
+3. On the repo: **Settings → Pages → Build and deployment → GitHub Actions**. The workflow in `.github/workflows/pages.yml` publishes on every push to `main`.
 
 The site URL will be:
 
