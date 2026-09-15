@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Korea heritage stamps · Nov 2026 ready bag</title>
+    <meta
+      name="description"
+      content="21 heritage stamps this trip (ready bag at 20). Clocked public-transport plan from Jongno, 6–18 Nov 2026."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">Korean Heritage Visitor Passport · tourist souvenirs</p>
+        <h1>21 stamps this trip (ready bag at 20)</h1>
+        <p class="lede">
+          Arrive ICN Friday 6 Nov 2026 evening. Sleep in Jongno. Saturday is
+          AREX to T1 for the book and three 홍보관 stamps, then continue to
+          Gimpo Jangneung. Sunday is Jeondeungsa and the Ganghwa dolmen.
+          The bag needs 20 stamps; this outing is 21 so Gongsanseong is
+          collected with Magoksa toward the 76.
+        </p>
+      </header>
+
+      <aside class="callout warning">
+        <strong>Magoksa is two stamps, airport is three</strong>
+        <p>
+          Magoksa: press the same pad onto 백제고도의 길 and 산사의 길. Airport:
+          finish the three T1 홍보관 missions, then stamp at the H-zone table.
+          Later dual sites (Donam, Dosan, Bongjeongsa) are not on this trip.
+        </p>
+      </aside>
+
+      <aside class="callout info">
+        <strong>What counts</strong>
+        <p>
+          Tourist souvenirs use stamp count only. Plus pads do not count.
+          Official 셀프 체험존 only — palace souvenir stamps do not. Gongsanseong
+          is the 21st stamp so you do not return to Gongju for the 76. Buyeo
+          extras are optional this trip if you still have daylight.
+        </p>
+      </aside>
+
+      <section>
+        <h2>6–18 Nov 2026 calendar</h2>
+        <p class="muted">
+          Friday evening arrival does not break the west split. It locks
+          Saturday/Sunday to airport+Jangneung and Ganghwa, and it forces
+          Pocheon onto the following weekend because Hwajeokyeon is
+          weekend-only.
+        </p>
+        <div id="calendar"></div>
+        <p class="source">
+          Source: 궁능유적본부 hours (Nov last entry 16:00–16:30) · kh.or.kr
+          Hwajeokyeon 안내소 · 홍보관 last Wednesday 25 Nov 2026
+        </p>
+      </section>
+
+      <div id="stats" class="stats"></div>
+
+      <section>
+        <h2>Fare to finish each day (KRW)</h2>
+        <p class="muted">Door-to-door from Jongno and back. Sorted cheapest first.</p>
+        <div id="fare-chart"></div>
+        <p class="source">
+          Source: Kakao walking + transit rematched with ODsay 9 Sep 2026 ·
+          KTX adult standard Korail May 2026 where Kakao returned no rail
+        </p>
+      </section>
+
+      <section>
+        <h2>Door-to-door day length (hours)</h2>
+        <p class="muted">
+          Moving + on-site tour + 1 h lunch + wait for opening. Gongju bar
+          is Magoksa + Gongsanseong only; Buyeo extras are dropped from this
+          chart because a real Busosanseong tour does not fit in November.
+        </p>
+        <div id="length-chart"></div>
+        <p class="source">
+          Source: Kakao/ODsay hops · site times from 궁능유적본부 / 김포시
+          (장릉 40 min) / VisitSeoul 창덕궁 90 min family course / 부여군 왕릉원
+          40 min · 부소산성 2 h / kh.or.kr 홍보관 mission lengths. Lunch is a
+          flat 60 min every day.
+        </p>
+      </section>
+
+      <hr />
+
+      <section id="sequencer">
+        <h2>Day sequencer</h2>
+        <label class="day-pick">
+          <span>Day</span>
+          <select id="day-select"></select>
+        </label>
+        <div id="day-stats" class="stats"></div>
+        <div id="day-notes"></div>
+        <h3>Visit order and where to stamp</h3>
+        <div id="visit-table"></div>
+        <h3>What to take, stop by stop</h3>
+        <div id="hop-table"></div>
+        <p id="day-caption" class="source"></p>
+      </section>
+
+      <hr />
+
+      <section>
+        <h2>Plus stamp booths (separate map layer)</h2>
+        <p class="muted">
+          Official 플러스 거점 pads from kh.or.kr near these eight days.
+          These do not count toward the ready bag or the 76-stamp plaque.
+          부여왕릉원 is the same pin as Naseong.
+        </p>
+        <div id="plus-table"></div>
+        <p class="source">
+          Source: kh.or.kr Plus list + course pages · Kakao Local keyword
+          on the booth name 9 Sep 2026.
+        </p>
+      </section>
+
+      <hr />
+
+      <section>
+        <h2>All eight days</h2>
+        <p id="all-lede" class="muted"></p>
+        <div id="all-table"></div>
+        <p id="all-source" class="source"></p>
+      </section>
+    </main>
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
