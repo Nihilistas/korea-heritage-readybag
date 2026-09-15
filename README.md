@@ -4,20 +4,21 @@ Static copy of the 6–18 Nov 2026 tourist stamp plan (ready bag at 20 stamps). 
 
 Open `index.html` in a browser, or host the folder on GitHub Pages.
 
-## GitHub Pages
+This copy is ready to push from the **Nihilistas** GitHub account. There is no `origin` remote yet.
 
-From this folder:
+## GitHub Pages (Nihilistas)
+
+From this folder, after you are logged in as Nihilistas:
 
 ```bash
-git add -A && git commit -m "Add static stamp plan"
 gh repo create korea-heritage-readybag --public --source=. --remote=origin --push
 ```
 
-Then on the GitHub repo: **Settings → Pages → Build and deployment → GitHub Actions**. The workflow in `.github/workflows/pages.yml` publishes on every push to `main`.
+Then on the repo: **Settings → Pages → Build and deployment → GitHub Actions**. The workflow in `.github/workflows/pages.yml` publishes on every push to `main`.
 
 The site URL will be:
 
-`https://<your-user>.github.io/korea-heritage-readybag/`
+https://nihilistas.github.io/korea-heritage-readybag/
 
 If you rename the repo, relative asset paths still work.
 
