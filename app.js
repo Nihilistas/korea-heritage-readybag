@@ -1,7 +1,18 @@
 (function () {
   const { DATA, STAMPS, SITE_TOUR, DAY_PACE, PLUS_BOOTHS, NOV2026, LUNCH_MIN } =
     window.PLAN;
-  const groups = DATA.groups;
+  const groups = [...DATA.groups].sort((a, b) =>
+    (a.tripDate ?? "").localeCompare(b.tripDate ?? "")
+  );
+
+  function novDayNum(label) {
+    const m = String(label).match(/(\d+)\s+Nov/);
+    return m ? Number(m[1]) : 99;
+  }
+
+  function dayLabel(g) {
+    return g.tripLabel ? `${g.tripLabel} · ${g.title}` : g.title;
+  }
 
   const ADMISSION = [
     {
@@ -160,11 +171,18 @@
       tone: "success",
     },
     {
-      day: "Sun 15 Nov · Seoul palaces",
-      english: "Yes — the only day with three posted English clocks.",
+      day: "Fri 13 Nov · Changdeok + Jongmyo",
+      english: "Yes — Changdeok 10:15 and Jongmyo 12:00 both posted in English.",
       ifChase:
-        "Keep today’s order and you wait: Jongmyo 10:00 → Changdeok 13:15 → Gyeongbok 15:30, home ~17:30. Reverse the order (Changdeok 10:15 → Jongmyo 12:00 → Gyeongbok 13:30) and it fits the same afternoon. 후원 English would still blow the day; skip it.",
-      tone: "info",
+        "Fits as written: Changdeok 10:15 (~50 min) → walk → Jongmyo 12:00 (~1 h, weekday 시간제). Home ~13:30. No Gyeongbok today.",
+      tone: "success",
+    },
+    {
+      day: "Sun 15 Nov · Gyeongbokgung",
+      english: "Yes — English 11:00 / 13:30 / 15:30. Plan uses 11:00 only.",
+      ifChase:
+        "11:00 (~60–90 min) ends ~12:30. Home ~13:15. A 13:30 tour still fits if you sleep in; 후원 English still does not fit.",
+      tone: "success",
     },
     {
       day: "Wed 11 Nov · Namhansanseong",
@@ -235,31 +253,31 @@
       tone: "success",
     },
     {
-      day: "15 Nov",
-      site: "Jongmyo",
-      window: "09:17–10:17 (plan)",
-      offered:
-        "Sunday is walk-in, but English still 10:00 / 12:00 / 14:00 / 16:00 · ~1 h. No Saturday English.",
-      hit: "Wait until 10:00 in the current order, or hit 12:00 after Changdeok.",
-      tone: "info",
-    },
-    {
-      day: "15 Nov",
+      day: "13 Nov",
       site: "Changdeokgung grounds",
-      window: "10:40–11:55 (plan)",
+      window: "10:10–11:05 (plan)",
       offered:
         "English 10:15 / 13:15 · ~50 min, 돈화문 map. Free, no reservation under 10.",
-      hit: "Current arrival misses 10:15. Reverse the morning, or wait until 13:15.",
-      tone: "info",
+      hit: "Fits 10:15 as written.",
+      tone: "success",
+    },
+    {
+      day: "13 Nov",
+      site: "Jongmyo",
+      window: "11:28–13:00 (plan)",
+      offered:
+        "English 10:00 / 12:00 / 14:00 / 16:00 · ~1 h. Friday is weekday 시간제 (not walk-in).",
+      hit: "Fits 12:00 after Changdeok.",
+      tone: "success",
     },
     {
       day: "15 Nov",
       site: "Gyeongbokgung",
-      window: "12:14–14:44 (plan)",
+      window: "10:55–12:30 (plan)",
       offered:
         "English 11:00 / 13:30 / 15:30 · 60–90 min, 흥례문 안내실. Last entry 16:00.",
-      hit: "12:14 misses 11:00. Reordered day catches 13:30. Current order waits for 15:30 (tight if the tour runs 90 min).",
-      tone: "info",
+      hit: "Fits 11:00. Home by early afternoon.",
+      tone: "success",
     },
     {
       day: "11 Nov",
@@ -527,7 +545,7 @@
       about:
         "UNESCO Confucian royal shrine that housed the spirit tablets of Joseon kings. Long courtyards and 정전 — solemn, not a palace garden.",
       thisTrip:
-        "Sunday 15 Nov is walk-in (English 해설 still runs at 10:00 / 12:00 / 14:00 / 16:00). Stamp at the 수표소 inside after the 종로 ticket office.",
+        "Fri 13 Nov: English 12:00 시간제 (~1 h). Stamp at the 수표소 inside after the 종로 ticket office.",
       tone: "warning",
     },
     {
@@ -535,7 +553,7 @@
       about:
         "UNESCO palace, the best-preserved Joseon royal compound: Injeongjeon throne hall, living quarters, and the Secret Garden (후원) behind.",
       thisTrip:
-        "Grounds only (~75 min). Stamp at 돈화문 / café Sarang. Skip 후원 (separate timed ₩5,000, ~90 min).",
+        "Fri 13 Nov: English grounds 해설 10:15 (~50 min). Stamp at 돈화문 / café Sarang. Skip 후원 (separate timed ₩5,000, ~90 min).",
       tone: "neutral",
     },
     {
@@ -543,7 +561,7 @@
       about:
         "The main Joseon palace under Bugaksan. Gwanghwamun, Geunjeongjeon, Gyeonghoeru pond pavilion.",
       thisTrip:
-        "Walk the main halls to 동궐마루 사랑 — the pad is inside, not at the gate. Optional free English 해설. 경회루 special tour is Korean-only and not in November 2026.",
+        "Sun 15 Nov: English 11:00 (~60–90 min). Stamp at 동궐마루 사랑 inside, not at the gate. 경회루 special tour is Korean-only and not in November 2026.",
       tone: "neutral",
     },
   ];
@@ -784,7 +802,7 @@
   const byFare = [...groups].sort((a, b) => a.total - b.total);
 
   document.getElementById("calendar").innerHTML = table(
-    ["Date", "Do", "Why"],
+    ["Date", "Visit order", "Why this day"],
     NOV2026.map((d) => [`${d.date} ${d.dow}`, d.plan, d.why]),
     { tones: NOV2026.map((d) => d.tone), sticky: true }
   );
@@ -821,15 +839,22 @@
   document.getElementById("admission-source").textContent =
     `Core tickets ${krw(ADMISSION_CORE)}. 4 palaces + Jongmyo 통합관람권 is ₩6,000 (6 months, 후원 excluded) versus ₩7,000 if you buy Jongmyo + Changdeokgung + Gyeongbokgung separately. Hanbok (jeogori + skirt or pants) is free at 궁능 palaces and tombs. Sources: royal.khs.go.kr fees + Jongmyo/Gyeongbokgung 해설 · jeondeungsa.org · gongju.go.kr · buyeo.go.kr (Jul 2026) · geoparkcenter.kr · artvalley.pcfac.or.kr · suwon.go.kr 화성박물관 어른 ₩2,000 · gg.go.kr 남한산성행궁.`;
 
+  const enDays = [...EN_DAYS].sort(
+    (a, b) => novDayNum(a.day) - novDayNum(b.day)
+  );
+  const enSites = [...EN_SITES].sort(
+    (a, b) => novDayNum(a.day) - novDayNum(b.day)
+  );
+
   document.getElementById("en-day-table").innerHTML = table(
     ["Day", "Posted English?", "If you chase a guide"],
-    EN_DAYS.map((d) => [d.day, d.english, d.ifChase]),
-    { tones: EN_DAYS.map((d) => d.tone), sticky: true }
+    enDays.map((d) => [d.day, d.english, d.ifChase]),
+    { tones: enDays.map((d) => d.tone), sticky: true }
   );
   document.getElementById("en-site-table").innerHTML = table(
     ["Day", "Site", "You are there", "What is actually offered", "Collision"],
-    EN_SITES.map((s) => [s.day, s.site, s.window, s.offered, s.hit]),
-    { tones: EN_SITES.map((s) => s.tone), sticky: true }
+    enSites.map((s) => [s.day, s.site, s.window, s.offered, s.hit]),
+    { tones: enSites.map((s) => s.tone), sticky: true }
   );
   document.getElementById("en-source").textContent =
     "Hop windows are the clocked ODsay leaves/arrives already on this page. Sources: royal.khs.go.kr 경복궁/종묘/조선왕릉 해설 · cha.go.kr 창덕궁 전각 English 10:15 / 13:15 · gg.go.kr 남한산성 foreign-language reservation · smuseum.suwon.go.kr 전시해설 · swcf.or.kr 화성 문화관광해설 · jeondeungsa.org 대웅보전 해설 · ganghwa.go.kr 해설사 배치 · gongju.go.kr 동절기 정시 해설 · geoparkcenter.kr / pocheon.go.kr 지질 해설 · 전곡리 안내소 English = no.";
@@ -903,7 +928,7 @@
   document.getElementById("all-table").innerHTML = table(
     ["Day", "Leave", "Back", "Door to door", "Moving", "On site", "Lunch"],
     budgets.map(({ g, b }) => [
-      g.title,
+      dayLabel(g),
       hhmm(b.leave),
       hhmm(b.homeCore),
       mins(b.doorCore),
@@ -926,7 +951,7 @@
   groups.forEach((g) => {
     const opt = document.createElement("option");
     opt.value = g.id;
-    opt.textContent = `${g.title} · ${mins(dayBudget(g).doorCore)} door to door`;
+    opt.textContent = `${dayLabel(g)} · ${mins(dayBudget(g).doorCore)} door to door`;
     select.appendChild(opt);
   });
 
